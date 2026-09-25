@@ -1,0 +1,173 @@
+---
+import { Font } from "astro:assets";
+import { getMenu, getSiteSettings } from "emdash";
+import {
+	WidgetArea,
+	EmDashHead,
+	EmDashBodyStart,
+	EmDashBodyEnd,
+} from "emdash/ui";
+import { createPublicPageContext } from "emdash/page";
+import LiveSearch from "emdash/ui/search";
+import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import "../styles/theme.css";
+
+interface Props {
+	title: string;
+	pageTitle?: string | null;
+	description?: string | null;
+	image?: string | null;
+	canonical?: string | null;
+	/** Pass content reference for plugin page contributions on content pages */
+	content?: { collection: string; id: string; slug?: string | null };
+}
+
+const { title, pageTitle, description, image, canonical, content } = Astro.props;
+const { siteTitle, siteTagline, siteLogo } = resolveStarterSiteIdentity(await getSiteSettings());
+const fullTitle = title.includes(siteTitle) ? title : `${title} — ${siteTitle}`;
+const pageDescription = description ?? siteTagline;
+
+const menu = await getMenu("primary");
+
+const pageCtx = createPublicPageContext({
+	Astro,
+	kind: content ? "content" : "custom",
+	pageType: "website",
+	title: fullTitle,
+	pageTitle: pageTitle ?? title,
+	description: pageDescription,
+	canonical,
+	image,
+	content,
+	siteName: siteTitle,
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{fullTitle}</title>
+		{pageDescription && <meta name="description" content={pageDescription} />}
+		{canonical && <link rel="canonical" href={canonical} />}
+		<Font cssVariable="--font-display" preload />
+		<Font cssVariable="--font-body" />
+		<EmDashHead page={pageCtx} />
+	</head>
+	<body>
+		<EmDashBodyStart page={pageCtx} />
+
+		<header class="site-header">
+			<nav class="site-nav">
+				<a class="site-brand" href="/">
+					{siteLogo
+						? <img class="site-logo" src={siteLogo.url} alt={siteLogo.alt || siteTitle} />
+						: siteTitle
+					}
+				</a>
+				<div class="site-nav-links">
+					{
+						menu?.items.map((item) => (
+							<a href={item.url} target={item.target}>
+								{item.label}
+							</a>
+						))
+					}
+				</div>
+				<div class="site-search">
+					<LiveSearch placeholder="Search..." collections={["posts", "pages"]} />
+				</div>
+			</nav>
+		</header>
+
+		<main class="site-main">
+			<slot />
+		</main>
+
+		<footer class="site-footer">
+			<WidgetArea name="sidebar" />
+		</footer>
+
+		<EmDashBodyEnd page={pageCtx} />
+	</body>
+</html>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 40;
+		border-bottom: 1px solid var(--line);
+		background: rgb(7 16 24 / 0.85);
+		backdrop-filter: blur(12px);
+	}
+
+	.site-nav {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-3) var(--space-4);
+		max-width: var(--page-width);
+		margin-inline: auto;
+		padding: var(--space-3) var(--space-4);
+	}
+
+	.site-brand {
+		font-family: var(--font-display);
+		font-size: 1.15rem;
+		font-weight: 700;
+		color: var(--text);
+		text-decoration: none;
+		letter-spacing: -0.02em;
+	}
+
+	.site-brand:hover {
+		color: var(--orange);
+	}
+
+	.site-logo {
+		display: block;
+		height: 48px;
+		width: auto;
+		margin: -8px 0;
+	}
+
+	.site-nav-links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-3);
+	}
+
+	.site-nav-links a {
+		font-family: var(--font-display);
+		font-size: 0.9rem;
+		color: var(--muted);
+		text-decoration: none;
+	}
+
+	.site-nav-links a:hover {
+		color: var(--blue);
+	}
+
+	.site-search {
+		margin-inline-start: auto;
+		min-width: min(16rem, 100%);
+	}
+
+	.site-main {
+		max-width: var(--page-width);
+		margin-inline: auto;
+		padding: var(--space-6) var(--space-4) var(--space-7);
+	}
+
+	.site-footer {
+		max-width: var(--page-width);
+		margin-inline: auto;
+		padding: var(--space-5) var(--space-4) var(--space-7);
+		border-top: 1px solid var(--line);
+		color: var(--muted);
+		font-size: 0.95rem;
+	}
+</style>

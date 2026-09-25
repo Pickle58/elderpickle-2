@@ -1,0 +1,48 @@
+---
+import { getTerm, getEmDashCollection, decodeSlug } from "emdash";
+import { Image } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+
+const slug = decodeSlug(Astro.params.slug);
+const term = slug ? await getTerm("category", slug, { includeCounts: false }) : null;
+
+if (!term) {
+	return Astro.redirect("/404");
+}
+
+const { entries: posts } = await getEmDashCollection("posts", {
+	where: { category: term.slug },
+	orderBy: { published_at: "desc" },
+});
+---
+
+<Base title={`${term.label} posts`} description={`Posts in ${term.label}`}>
+	<h1 class="page-heading">{term.label}</h1>
+	<p class="page-sub">{posts.length} {posts.length === 1 ? "post" : "posts"}</p>
+
+	{
+		posts.length === 0 ? (
+			<p class="empty">No posts in this category yet.</p>
+		) : (
+			<ul class="post-list">
+				{posts.map((post) => (
+					<li class="post-card">
+						<a class="card-link" href={`/posts/${post.id}`}>
+							{post.data.featured_image && (
+								<Image image={post.data.featured_image} />
+							)}
+							<h2>{post.data.title}</h2>
+						</a>
+						{post.data.excerpt && <p class="excerpt">{post.data.excerpt}</p>}
+					</li>
+				))}
+			</ul>
+		)
+	}
+</Base>
+
+<style>
+	.empty {
+		color: var(--muted);
+	}
+</style>

@@ -1,0 +1,237 @@
+:root {
+	--bg: #071018;
+	--surface: #101a2b;
+	--text: #e7eef8;
+	--muted: #8ea0b8;
+	--blue: #3d8bfd;
+	--orange: #ff8a3d;
+	--line: #243044;
+	--font-display: "Syne", system-ui, sans-serif;
+	--font-body: "Source Serif 4", Georgia, serif;
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 1rem;
+	--space-4: 1.5rem;
+	--space-5: 2rem;
+	--space-6: 3rem;
+	--space-7: 4rem;
+	--radius: 1rem;
+	--content-width: 65ch;
+	--page-width: 72rem;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	color-scheme: dark;
+}
+
+body {
+	margin: 0;
+	min-height: 100svh;
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-body);
+	font-size: 1.0625rem;
+	line-height: 1.65;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-display);
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+}
+
+a {
+	color: var(--blue);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+a:hover {
+	color: var(--orange);
+}
+
+:focus-visible {
+	outline: 2px solid var(--blue);
+	outline-offset: 2px;
+}
+
+img,
+video {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Shared reading column (About, CMS pages, post body) */
+.prose {
+	max-width: var(--content-width);
+	margin-inline: auto;
+}
+
+.prose :is(h1, h2, h3) {
+	margin-top: 1.75em;
+	margin-bottom: 0.5em;
+}
+
+.prose h1 {
+	margin-top: 0;
+	font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.prose blockquote {
+	margin: 0 0 1.1em;
+}
+
+.prose blockquote {
+	margin-inline: 0;
+	padding-inline-start: var(--space-4);
+	border-inline-start: 3px solid var(--orange);
+	color: var(--muted);
+}
+
+.prose :is(ul, ol) {
+	padding-inline-start: 1.25em;
+}
+
+.prose a {
+	color: var(--blue);
+}
+
+.prose time,
+.meta {
+	display: block;
+	margin-bottom: var(--space-3);
+	color: var(--muted);
+	font-family: var(--font-display);
+	font-size: 0.875rem;
+	letter-spacing: 0.02em;
+}
+
+.taxonomies {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	margin: var(--space-3) 0;
+}
+
+.taxonomies a {
+	display: inline-block;
+	padding: 0.2em 0.65em;
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	background: var(--surface);
+	color: var(--muted);
+	font-family: var(--font-display);
+	font-size: 0.75rem;
+	text-decoration: none;
+}
+
+.taxonomies a:hover {
+	border-color: var(--blue);
+	color: var(--blue);
+}
+
+/* Post card lists */
+.post-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: var(--space-4);
+}
+
+.post-card {
+	display: grid;
+	gap: var(--space-3);
+	padding: var(--space-4);
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
+	background: var(--surface);
+}
+
+.post-card a.card-link {
+	display: grid;
+	gap: var(--space-3);
+	color: inherit;
+	text-decoration: none;
+}
+
+.post-card a.card-link:hover h2 {
+	color: var(--orange);
+}
+
+.post-card img {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border-radius: calc(var(--radius) - 0.25rem);
+}
+
+.post-card h2 {
+	margin: 0;
+	font-size: 1.35rem;
+	color: var(--text);
+}
+
+.post-card .excerpt {
+	margin: 0;
+	color: var(--muted);
+}
+
+.page-heading {
+	margin: 0 0 var(--space-5);
+	font-size: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.page-heading + .page-sub {
+	margin: calc(var(--space-5) * -1) 0 var(--space-5);
+	color: var(--muted);
+}
+
+.featured-image {
+	margin-bottom: var(--space-5);
+	border-radius: var(--radius);
+	overflow: hidden;
+	border: 1px solid var(--line);
+}
+
+.featured-image img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.post-layout {
+	display: grid;
+	gap: var(--space-6);
+}
+
+@media (min-width: 960px) {
+	.post-layout {
+		grid-template-columns: minmax(0, 1fr) 16rem;
+		align-items: start;
+	}
+}
+
+.post-layout aside {
+	padding: var(--space-4);
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
+	background: var(--surface);
+	color: var(--muted);
+	font-size: 0.95rem;
+}
