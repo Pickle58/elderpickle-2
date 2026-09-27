@@ -217,6 +217,25 @@ video {
 	color: var(--muted);
 }
 
+/* Same double ring as the home hero: blue inner line, page-colored gap, orange outer line. */
+.media-frame,
+.page-body .emdash-image {
+	overflow: hidden;
+	border-radius: var(--radius);
+	border: 1px solid var(--line);
+	background: var(--surface);
+	box-shadow:
+		0 0 0 1px color-mix(in srgb, var(--blue) 45%, transparent),
+		0 0 0 6px var(--bg),
+		0 0 0 7px color-mix(in srgb, var(--orange) 85%, transparent);
+}
+
+.page-body .emdash-image img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
 .featured-image {
 	margin-bottom: var(--space-5);
 	border-radius: var(--radius);

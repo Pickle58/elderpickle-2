@@ -15,7 +15,7 @@ Astro.cache.set(cacheHint);
 
 <Base title={siteTitle} description={siteTagline}>
 	<section class="hero">
-		<div class="frame">
+		<div class="frame media-frame">
 			<video
 				class="frame-video"
 				autoplay
@@ -87,14 +87,6 @@ Astro.cache.set(cacheHint);
 		position: relative;
 		width: min(60rem, 100%);
 		aspect-ratio: 16 / 9;
-		overflow: hidden;
-		border-radius: var(--radius);
-		border: 1px solid var(--line);
-		box-shadow:
-			0 0 0 1px rgb(61 139 253 / 0.45),
-			0 0 0 6px var(--bg),
-			0 0 0 7px rgb(255 138 61 / 0.85);
-		background: var(--surface);
 	}
 
 	.frame-video {
