@@ -9,6 +9,7 @@ import {
 } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import LiveSearch from "emdash/ui/search";
+import AnimatedBorderButton from "@astroanimate/core/AnimatedBorderButton";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 import "../styles/theme.css";
 
@@ -69,9 +70,9 @@ const pageCtx = createPublicPageContext({
 				<div class="site-nav-links">
 					{
 						menu?.items.map((item) => (
-							<a href={item.url} target={item.target}>
+							<AnimatedBorderButton as="a" href={item.url}>
 								{item.label}
-							</a>
+							</AnimatedBorderButton>
 						))
 					}
 				</div>
@@ -115,8 +116,10 @@ const pageCtx = createPublicPageContext({
 
 	.site-brand {
 		font-family: var(--font-display);
-		font-size: 1.15rem;
-		font-weight: 700;
+		/* Ink height of Syne at this size lines up with the nav buttons. */
+		font-size: 4.25rem;
+		line-height: 1;
+		font-weight: 400;
 		color: var(--text);
 		text-decoration: none;
 		letter-spacing: -0.02em;
@@ -140,14 +143,14 @@ const pageCtx = createPublicPageContext({
 		gap: var(--space-3);
 	}
 
-	.site-nav-links a {
+	/* Beat AnimatedBorderButton's scoped white fill and black label. */
+	.site-nav-links :global(a[data-abb]) {
+		background-color: transparent;
+		color: var(--text);
 		font-family: var(--font-display);
-		font-size: 0.9rem;
-		color: var(--muted);
-		text-decoration: none;
 	}
 
-	.site-nav-links a:hover {
+	.site-nav-links :global(a[data-abb]:hover) {
 		color: var(--blue);
 	}
 

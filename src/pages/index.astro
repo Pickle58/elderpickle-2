@@ -3,6 +3,7 @@ import { getEmDashCollection, getSiteSettings } from "emdash";
 import { Image } from "emdash/ui";
 import Base from "../layouts/Base.astro";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import FadeInText from "@astroanimate/core/FadeInText";
 
 const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
 	limit: 3,
@@ -26,7 +27,9 @@ Astro.cache.set(cacheHint);
 				<source src="/hero.mp4" type="video/mp4" />
 			</video>
 			<div class="frame-copy">
+				<FadeInText enhance yOffset={20} once>
 				<h1>{siteTitle}</h1>
+				</FadeInText>
 				{siteTagline && <p>{siteTagline}</p>}
 			</div>
 		</div>

@@ -191,6 +191,9 @@ importers:
 
   .:
     dependencies:
+      '@astroanimate/core':
+        specifier: ^0.1.2
+        version: 0.1.2(astro@7.3.4(@emnapi/core@1.11.3)(@emnapi/runtime@1.11.3)(@types/node@22.20.4)(yaml@2.9.1))
       '@astrojs/node':
         specifier: ^11.1.5
         version: 11.1.6(astro@7.3.4(@emnapi/core@1.11.3)(@emnapi/runtime@1.11.3)(@types/node@22.20.4)(yaml@2.9.1))
@@ -218,6 +221,11 @@ importers:
         version: 22.20.4
 
 packages:
+
+  '@astroanimate/core@0.1.2':
+    resolution: {integrity: sha512-cu1ytAp8ZPelcxnZlRavNfNrLn60DoQSUBqUzWLJr9b5n5gP/prNNb5MuH7LWK+Y5i2SZF31ptjfJroTy6il/A==}
+    peerDependencies:
+      astro: ^4.0.0 || ^5.0.0 || ^6.0.0
 
   '@astrojs/astro2tsx@0.1.1':
     resolution: {integrity: sha512-VNhvoKzs0FXF3iq+2QVIjTqA6awKDKpd2U7khYg3AhcxjM1KMINEma4IeqQnMqJUakw0MNQygntLvLmSPS5pLA==}
@@ -3600,6 +3608,10 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
+
+  '@astroanimate/core@0.1.2(astro@7.3.4(@emnapi/core@1.11.3)(@emnapi/runtime@1.11.3)(@types/node@22.20.4)(yaml@2.9.1))':
+    dependencies:
+      astro: 7.3.4(@emnapi/core@1.11.3)(@emnapi/runtime@1.11.3)(@types/node@22.20.4)(yaml@2.9.1)
 
   '@astrojs/astro2tsx@0.1.1(@emnapi/runtime@1.11.3)':
     dependencies:
