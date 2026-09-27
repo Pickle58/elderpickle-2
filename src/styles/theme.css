@@ -18,6 +18,21 @@
 	--radius: 1rem;
 	--content-width: 65ch;
 	--page-width: 72rem;
+
+	/* LiveSearch defaults to a white field. Body text is light, so typed
+	   text and results need these tokens or they vanish on that background. */
+	--emdash-search-bg: var(--surface);
+	--emdash-search-text: var(--text);
+	--emdash-search-muted: var(--muted);
+	--emdash-search-border: var(--line);
+	--emdash-search-border-focus: var(--blue);
+	--emdash-search-hover: color-mix(in srgb, var(--text) 8%, var(--surface));
+	--emdash-search-highlight: var(--orange);
+}
+
+.emdash-live-search-input::placeholder {
+	color: var(--emdash-search-muted);
+	opacity: 1;
 }
 
 *,
